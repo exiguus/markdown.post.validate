@@ -139,6 +139,62 @@ Examples:
   validate_all_blog_posts.sh -v -c -k                # Verbose, no cache, continue on failure
 ```
 
+## Github Workflow
+
+Example Github Workflow to validate posts on push and pull requests:
+
+```yaml
+name: Quality Validation
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate-posts:
+    name: Validate Posts with Quality Gates
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Rust
+        uses: moonrepo/setup-rust@v1.3.0
+
+      - name: Cache Rust toolchain and lychee
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+          key: ${{ runner.os }}-cargo-lychee-${{ hashFiles('.github/workflows/qa.yml', 'scripts/validate_blog_post.sh') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-lychee-
+            ${{ runner.os }}-cargo-
+
+      - name: Cache validation results
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/blog-validator
+          key: ${{ runner.os }}-blog-validator-${{ hashFiles('scripts/validate_blog_post.sh') }}
+          restore-keys: |
+            ${{ runner.os }}-blog-validator-
+
+      - name: Install lychee
+        run: command -v lychee >/dev/null 2>&1 || { command -v cargo >/dev/null 2>&1 && { echo "Installing lychee..."; cargo install lychee; } || { echo "Install cargo to be able to install lychee"; exit 1; } }
+
+      - name: Run Post Quality Gate Validation
+        run: ./scripts/validate_all_blog_posts.sh
+```
+
 ### Make Targets
 
 ```bash
