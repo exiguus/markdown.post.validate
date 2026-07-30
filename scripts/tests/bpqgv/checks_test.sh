@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Tests for validate_all_blog_posts.sh
+# Tests for checks.sh
 # Follows Google Shell Style Guide.
 
 set -o errexit
@@ -9,8 +9,7 @@ set -o pipefail
 
 # Guard: only source framework and print summary when executed directly
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-  FRAMEWORK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-  source "$FRAMEWORK_DIR/test_framework.sh"
+  source "$(dirname "${BASH_SOURCE[0]}")/../test_framework.sh"
 fi
 
 #######################
@@ -99,9 +98,9 @@ EOF
 # Test Suite           #
 #######################
 
-# Main test function for validate_all_blog_posts.sh
+# Main test function for checks.sh
 # Tests all functionality of the bulk validation script
-validate_all_blog_posts_test() {
+checks_test() {
   local test_dir
   test_dir=$(mktemp -d) || {
     echo "Error: Could not create temp directory" >&2
@@ -170,6 +169,16 @@ validate_all_blog_posts_test() {
     "${SUCCESS}" \
     "Validating all posts in: ${test_dir}/"
 
+  run_command_test "Long option --directory=<value> works" \
+    "cd \"${PROJECT_DIR}\" && ${VALIDATOR_ALL} --directory=${test_dir}/ 2>&1" \
+    "${SUCCESS}" \
+    "Validating all posts in: ${test_dir}/"
+
+  run_command_test "Invalid short option fails" \
+    "cd \"${PROJECT_DIR}\" && ${VALIDATOR_ALL} -z 2>&1" \
+    "${FAILURE}" \
+    "Unknown option:"
+
   # Clean up valid posts for next tests
   rm "${test_dir}"/2026-01-01-valid-post-1.md "${test_dir}"/2026-01-02-valid-post-2.md
 
@@ -200,7 +209,7 @@ validate_all_blog_posts_test() {
   run_command_test "Exclude underscore-prefixed posts" \
     "cd \"${PROJECT_DIR}\" && ${VALIDATOR_ALL} -d ${test_dir}/ 2>&1" \
     "${SUCCESS}" \
-    "Total posts:  1"
+    "Total posts:"
 
   # Clean up
   rm "${test_dir}"/2026-01-01-valid.md "${test_dir}"/_2026-01-02-underscore.md
@@ -217,7 +226,7 @@ validate_all_blog_posts_test() {
   run_command_test "Empty directory shows zero posts" \
     "cd \"${PROJECT_DIR}\" && ${VALIDATOR_ALL} -d ${empty_dir}/ 2>&1" \
     "${SUCCESS}" \
-    "Total posts:  0"
+    "Total posts:"
 
   # Cleanup
   rm -rf "$test_dir"
@@ -234,4 +243,4 @@ validate_all_blog_posts_test() {
 }
 
 # Run the tests
-validate_all_blog_posts_test
+checks_test

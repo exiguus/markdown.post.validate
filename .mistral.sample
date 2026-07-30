@@ -1,0 +1,4 @@
+# Mistral API Configuration
+# Copy this file to .mistral and fill in your API key
+
+MISTRAL_API_KEY=your_api_key_here

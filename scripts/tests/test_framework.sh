@@ -7,45 +7,48 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-# Colors for output
-if [[ -t 1 ]]; then
-  readonly RED='\033[0;31m'
-  readonly GREEN='\033[0;32m'
-  readonly BLUE='\033[0;34m'
-  readonly NC='\033[0m'
-else
-  readonly RED=''
-  readonly GREEN=''
-  readonly BLUE=''
-  readonly NC=''
-fi
-export RED GREEN BLUE NC
+# Framework guard - load once, use everywhere
+if [[ -z "${TEST_FRAMEWORK_LOADED:-}" ]]; then
+  export TEST_FRAMEWORK_LOADED=1
 
-# MOCKS_DIR relative to test files
-# Use BASH_SOURCE[0] to get the framework file path
-FRAMEWORK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_DIR="$(cd "$FRAMEWORK_DIR/.." && pwd)"
-MOCKS_DIR="$PROJECT_DIR/mocks"
+  # Colors for output (ALL in one place)
+  if [[ -t 1 ]]; then
+    readonly RED='\033[0;31m'
+    readonly GREEN='\033[0;32m'
+    readonly BLUE='\033[0;34m'
+    readonly YELLOW='\033[0;33m'
+    readonly NC='\033[0m'
+  else
+    readonly RED=''
+    readonly GREEN=''
+    readonly BLUE=''
+    readonly YELLOW=''
+    readonly NC=''
+  fi
+  export RED GREEN BLUE YELLOW NC
 
-# Validator paths
-VALIDATOR="$PROJECT_DIR/validate_blog_post.sh"
-VALIDATOR_ALL="$PROJECT_DIR/validate_all_blog_posts.sh"
-export VALIDATOR VALIDATOR_ALL MOCKS_DIR
+  # Exit codes
+  readonly SUCCESS=0
+  readonly FAILURE=1
+  export SUCCESS FAILURE
 
-# Exit codes
-readonly SUCCESS=0
-readonly FAILURE=1
-export SUCCESS FAILURE
+  # MOCKS_DIR relative to test files
+  # Use BASH_SOURCE[0] to get the framework file path
+  FRAMEWORK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  PROJECT_DIR="$(cd "$FRAMEWORK_DIR/.." && pwd)"
+  MOCKS_DIR="$PROJECT_DIR/mocks"
 
-# Counters (declared globally so they persist across source calls)
-# Only initialize once using a guard variable
-if [[ -z "${TEST_FRAMEWORK_INITIALIZED:-}" ]]; then
+  # Validator paths
+  VALIDATOR="$PROJECT_DIR/check.sh"
+  VALIDATOR_ALL="$PROJECT_DIR/checks.sh"
+  export VALIDATOR VALIDATOR_ALL MOCKS_DIR
+
+  # Counters (declared globally so they persist across source calls)
   passed=0
   failed=0
   total=0
-  export TEST_FRAMEWORK_INITIALIZED=1
+  export passed failed total
 fi
-export passed failed total
 
 #######################
 # Test Framework      #
@@ -102,6 +105,7 @@ run_test() {
     echo -e "  ${RED}✗ FAILED${NC} - Test file not found: $test_file"
     ((failed++)) || true
   fi
+  ((total++)) || true
   echo ""
 }
 
@@ -134,7 +138,7 @@ run_grep_test() {
     local output
     output=$(env -i HOME="" PATH="$PATH" bash --norc --noprofile "$VALIDATOR" "$test_file" 2>&1) || true
 
-    if echo "$output" | grep -q "$search_string"; then
+    if grep -q -- "$search_string" <<<"$output"; then
       echo -e "  ${GREEN}✓ PASSED${NC} - String found in output"
       ((passed++)) || true
     else
@@ -148,6 +152,40 @@ run_grep_test() {
     ((failed++)) || true
   fi
   echo ""
+}
+
+# Run a table of run_test cases
+# Args:
+#   $@: Entries in format "test_name|fixture_file|expected_exit|description"
+run_test_cases() {
+  local cases=("$@")
+
+  local case_entry
+  for case_entry in "${cases[@]}"; do
+    local test_name
+    local fixture_file
+    local expected_exit
+    local description
+    IFS='|' read -r test_name fixture_file expected_exit description <<<"$case_entry"
+    run_test "$test_name" "$fixture_file" "$expected_exit" "$description"
+  done
+}
+
+# Run a table of run_grep_test cases
+# Args:
+#   $@: Entries in format "test_name|fixture_file|search_string|description"
+run_grep_test_cases() {
+  local cases=("$@")
+
+  local case_entry
+  for case_entry in "${cases[@]}"; do
+    local test_name
+    local fixture_file
+    local search_string
+    local description
+    IFS='|' read -r test_name fixture_file search_string description <<<"$case_entry"
+    run_grep_test "$test_name" "$fixture_file" "$search_string" "$description"
+  done
 }
 
 # Run a command test and check output and exit code
@@ -200,7 +238,7 @@ run_command_test() {
   # Check search strings
   local all_found=true
   for search_str in "${search_strings[@]}"; do
-    if ! echo "$output" | grep -q "$search_str"; then
+    if ! grep -q -- "$search_str" <<<"$output"; then
       echo -e "  ${RED}✗ FAILED${NC} - String not found: '$search_str'"
       all_found=false
     fi

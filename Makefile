@@ -1,4 +1,4 @@
-TEST_SHELLS := $(wildcard scripts/tests/*.sh)
+TEST_SHELLS := $(wildcard scripts/tests/*.sh) $(wildcard scripts/tests/**/*.sh)
 ROOT_SHELLS := $(filter-out $(TEST_SHELLS),$(wildcard scripts/*.sh))
 SHELLS := $(ROOT_SHELLS) $(TEST_SHELLS)
 
@@ -105,12 +105,16 @@ check:
 	@$(MAKE) --no-print-directory test
 	@echo "[check] All checks passed"
 
-## Install shfmt, shellcheck, and lychee link checker if missing
+## Install shfmt, shellcheck, jq, curl, and lychee link checker if missing
 install:
 	@# Install shfmt if missing.
 	@command -v shfmt >/dev/null 2>&1 || { echo "Installing shfmt..."; sudo apt-get update -qq && sudo apt-get install -y shfmt; }
 	@# Install shellcheck if missing.
 	@command -v shellcheck >/dev/null 2>&1 || { echo "Installing shellcheck..."; sudo apt-get update -qq && sudo apt-get install -y shellcheck; }
+	@# Install jq if missing.
+	@command -v jq >/dev/null 2>&1 || { echo "Installing jq..."; sudo apt-get update -qq && sudo apt-get install -y jq; }
+	@# Install curl if missing.
+	@command -v curl >/dev/null 2>&1 || { echo "Installing curl..."; sudo apt-get update -qq && sudo apt-get install -y curl; }
 	@# Install lychee link checker if missing.
 	@if ! command -v lychee >/dev/null 2>&1; then \
 		if command -v cargo >/dev/null 2>&1; then \

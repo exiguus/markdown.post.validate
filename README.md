@@ -1,34 +1,30 @@
-# Blog Post Quality Validator
+# Blog Post Quality Gate Validator (BPQGV)
 
-A comprehensive Bash-based validation system for markdown blog posts that enforces blog post quality standards before publication.
+A comprehensive Bash-based validation system for markdown blog posts that enforces quality standards before publication, providing validation, suggestions, and guidance.
 
 ## Quick Start
 
 ```bash
-# Validate a single post
-./scripts/validate_blog_post.sh path/to/post.md
+# Validate quality gates
+./scripts/check.sh path/to/post.md
 
-# Validate all posts in the posts/ directory
-./scripts/validate_all_blog_posts.sh
-
-# Run the full test suite
-make test
-
-# Run all checks (format, lint, styleguide, test)
-make check
+# Retrieve a report for manual quality gates
+./scripts/assisted_check.sh path/to/post.md
 ```
 
 ## Features
 
 - **22 Quality Gates** across 3 categories (Blocking, Quality, Accessibility)
-- **14 Automated Checks** (64% automation coverage)
-- **8 Manual Checks** with clear guidance
+- **14 Automated Checks** (63% automation coverage)
+- **8 Manual Checks** with clear guidance and **AI-assisted validation**
 - **TOML Frontmatter** validation
 - **Markdown Structure** verification
 - **Link Validation** with lychee integration
 - **Image Verification** for referenced assets
 - **Footnote Integrity** checking
-- **Comprehensive Test Suite** with 31+ test cases
+- **Comprehensive Test Suite** with 100+ test cases
+- **AI-Assisted Manual Checks** using Mistral API for automated quality gate validation and guidance
+- **Deterministic AI Report Schema Validation** with automatic cache regeneration for invalid cached reports
 
 ## Installation
 
@@ -39,6 +35,8 @@ make check
 - Optional: [lychee](https://lychee.cli.rs/) for link validation (`cargo install lychee`)
 - Optional: [shfmt](https://github.com/mvdan/sh) for formatting
 - Optional: [shellcheck](https://www.shellcheck.net/) for linting
+- Optional: [jq](https://stedolan.github.io/jq/) for JSON parsing (`make install`)
+- Optional: Mistral API key for AI-assisted manual checks (create `.mistral` from `.mistral.sample`)
 
 ### Setup
 
@@ -59,8 +57,8 @@ make install
 ### Single Post Validation
 
 ```bash
-./scripts/validate_blog_post.sh --help
-Usage: validate_blog_post.sh [-h|--help] [-v|--verbose] [-c|--no-cache] FILE.md
+./scripts/check.sh --help
+Usage: check.sh [-h|--help] [-v|--verbose] [-c|--no-cache] FILE.md
 
 Validates a blog post markdown file against blog post quality standards.
 
@@ -109,8 +107,8 @@ Checks Performed:
 The bulk validator checks all markdown posts in a directory, excluding files starting with underscore (`_`). By default, it fails fast on the first validation error. Use `-k` or `--continue` to validate all posts and get a summary of failures.
 
 ```bash
-./scripts/validate_all_blog_posts.sh --help
-Usage: validate_all_blog_posts.sh [-h|--help] [-v|--verbose] [-c|--no-cache] [-k|--continue] [-d|--directory DIRECTORY]
+./scripts/checks.sh --help
+Usage: checks.sh [-h|--help] [-v|--verbose] [-c|--no-cache] [-k|--continue] [-d|--directory DIRECTORY]
 
 Validates all blog post markdown files against blog post quality standards.
 
@@ -126,18 +124,76 @@ Exit Codes:
   1    One or more checks failed.
 
 Examples:
-  validate_all_blog_posts.sh                          # Validate all posts in posts/
-  validate_all_blog_posts.sh --help                   # Show this help message
-  validate_all_blog_posts.sh -v                      # Verbose output
-  validate_all_blog_posts.sh --verbose               # Verbose output (long form)
-  validate_all_blog_posts.sh -c                      # Disable cache
-  validate_all_blog_posts.sh --no-cache             # Disable cache (long form)
-  validate_all_blog_posts.sh -k                      # Continue on failure
-  validate_all_blog_posts.sh --continue              # Continue on failure (long form)
-  validate_all_blog_posts.sh -d custom/posts/        # Validate posts in custom directory
-  validate_all_blog_posts.sh --directory custom/posts/ # Validate posts in custom directory (long form)
-  validate_all_blog_posts.sh -v -c -k                # Verbose, no cache, continue on failure
+  checks.sh                          # Validate all posts in posts/
+  checks.sh --help                   # Show this help message
+  checks.sh -v                      # Verbose output
+  checks.sh --verbose               # Verbose output (long form)
+  checks.sh -c                      # Disable cache
+  checks.sh --no-cache             # Disable cache (long form)
+  checks.sh -k                      # Continue on failure
+  checks.sh --continue              # Continue on failure (long form)
+  checks.sh -d custom/posts/        # Validate posts in custom directory
+  checks.sh --directory custom/posts/ # Validate posts in custom directory (long form)
+  checks.sh -v -c -k                # Verbose, no cache, continue on failure
 ```
+
+### AI-Assisted Manual Checks
+
+Run AI-powered validation for manual quality gates using Mistral models. A report is created for each manual gate that provides validation, suggestions and guidance.
+Results are cached to avoid redundant API calls.
+
+```bash
+# Run AI checks on a single post (all manual gates)
+./scripts/assisted_checks.sh posts/my-article.md
+
+# Run specific manual checks only
+./scripts/assisted_checks.sh -c A2,C6 posts/my-article.md
+
+# Use a specific Mistral model (default: mistral-medium)
+./scripts/assisted_checks.sh -m mistral-medium posts/my-article.md
+
+# Use a custom API key file (default: .mistral)
+./scripts/assisted_checks.sh -k /path/to/keyfile posts/my-article.md
+
+# Disable caching of AI check results
+./scripts/assisted_checks.sh -n posts/my-article.md
+
+# Disable writing report files to disk
+./scripts/assisted_checks.sh -r posts/my-article.md
+
+# Combine flags: no cache, no reports, specific checks
+./scripts/assisted_checks.sh -n -r -c A2,C6 posts/my-article.md
+
+# Show help
+./scripts/assisted_checks.sh -h
+```
+
+**Available Manual Checks:**
+
+- A2: Source Verification
+- A6: Link Relevance
+- B3: Evidence Quality
+- B7: Quote Accuracy
+- B8: Conclusion Quality
+- C5: Originality Check
+- C6: Argument Balance
+- C7: Writing Quality
+
+**Output:** Results are saved to `reports/<article-name>/<check-id>.md` for each check.
+
+**Runtime Validation Behavior:**
+
+- AI check reports are schema-validated by `scripts/assisted_checks.sh` before they are accepted.
+- If a cached AI result is schema-invalid, the cached entry is rejected and the check is regenerated.
+- Summary output includes both legacy PASS/FAIL totals and a status breakdown (`PARTIAL`, `NOT_APPLICABLE`, `NEEDS_REVIEW`, `UNKNOWN`).
+
+**Examples:** Reports of the AI-assisted manual checks for the example posts are available in [reports/](reports/).
+
+**Prerequisites:**
+
+- Mistral API key (create `.mistral` file from `.mistral.sample`)
+- `jq` for JSON parsing (install via `make install`)
+- `curl` for API requests
 
 ## Github Workflow
 
@@ -175,7 +231,7 @@ jobs:
             ~/.cargo/registry/index/
             ~/.cargo/registry/cache/
             ~/.cargo/git/db/
-          key: ${{ runner.os }}-cargo-lychee-${{ hashFiles('.github/workflows/qa.yml', 'scripts/validate_blog_post.sh') }}
+          key: ${{ runner.os }}-cargo-lychee-${{ hashFiles('.github/workflows/qa.yml', 'scripts/check.sh') }}
           restore-keys: |
             ${{ runner.os }}-cargo-lychee-
             ${{ runner.os }}-cargo-
@@ -184,7 +240,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cache/blog-validator
-          key: ${{ runner.os }}-blog-validator-${{ hashFiles('scripts/validate_blog_post.sh') }}
+          key: ${{ runner.os }}-blog-validator-${{ hashFiles('scripts/check.sh') }}
           restore-keys: |
             ${{ runner.os }}-blog-validator-
 
@@ -192,7 +248,7 @@ jobs:
         run: command -v lychee >/dev/null 2>&1 || { command -v cargo >/dev/null 2>&1 && { echo "Installing lychee..."; cargo install lychee; } || { echo "Install cargo to be able to install lychee"; exit 1; } }
 
       - name: Run Post Quality Gate Validation
-        run: ./scripts/validate_all_blog_posts.sh
+        run: ./scripts/checks.sh
 ```
 
 ### Make Targets
@@ -222,7 +278,7 @@ make check
 Here's an example of verbose output from validating a post:
 
 ```log
-$ ./scripts/validate_blog_post.sh -v posts/2026-07-30-getting-started-with-rust.md
+$ ./scripts/check.sh -v posts/2026-07-30-getting-started-with-rust.md
 Validating: posts/2026-07-30-getting-started-with-rust.md
 ----------------------------------------
 
@@ -272,7 +328,7 @@ Result: PASSED
 Here's an example of validating all posts in a directory:
 
 ```log
-$ ./scripts/validate_all_blog_posts.sh -v
+$ ./scripts/checks.sh -v
 Validating all posts in: posts/
 ----------------------------------------
 [1] Validating: posts/2026-07-29-the-art-of-debugging.md
@@ -498,7 +554,7 @@ hero_copy = "Optional caption text"
 
 ## Configuration System
 
-The validator uses a centralized configuration system defined in `scripts/validate_blog_post.sh`. Each check is configured with:
+The validator uses a centralized configuration system defined in `scripts/check.sh`. Each check is configured with:
 
 ```bash
 # Check ID configuration example
@@ -545,28 +601,28 @@ make test
 ./scripts/tests/run_tests.sh
 
 # Run specific test categories
-./scripts/tests/valid_post_test.sh
-./scripts/tests/frontmatter_test.sh
-./scripts/tests/structure_test.sh
-./scripts/tests/validate_all_blog_posts_test.sh
+./scripts/tests/checks/valid_post_test.sh
+./scripts/tests/checks/frontmatter_test.sh
+./scripts/tests/checks/structure_test.sh
+./scripts/tests/bpqgv/checks_test.sh
 # ... etc
 ```
 
 ### Test Results
 
-- **Total Tests**: 46 automated tests
-- **Coverage**: All validation functions tested
-- **Test Files**: 11 category-specific test suites
-- **Mock Posts**: 12+ test fixtures in `scripts/mocks/`
+- **Total Tests**: 67 automated tests
+- **Coverage**: All validation functions and AI check scripts tested
+- **Test Files**: 12 category-specific test suites
+- **Mock Posts**: 30+ test fixtures in `scripts/mocks/`
 
 ### Adding Tests
 
 To add a new test:
 
-1. Create a new test file in `scripts/tests/` (e.g., `new_feature_test.sh`)
-2. Source the test framework: `source "$FRAMEWORK_DIR/test_framework.sh"`
-3. Use `run_test` function for individual tests or `run_category_tests` for grouped tests
-4. Add your test file to the `test_files` array in `run_tests.sh`
+1. Create a new test file in `scripts/tests/checks/` or `scripts/tests/bpqgv/`
+2. Source the test framework: `source "$(dirname "${BASH_SOURCE[0]}")/../test_framework.sh"`
+3. Use `run_test`, `run_grep_test`, or `run_command_test`
+4. Add your test file to the `test_files` array in `scripts/tests/run_tests.sh`
 
 ## Development
 
@@ -578,29 +634,32 @@ To add a new test:
 │   ├── 2026-07-29-the-art-of-debugging.md
 │   └── 2026-07-30-getting-started-with-rust.md
 ├── scripts/                        # Validator scripts
-│   ├── validate_blog_post.sh       # Main validation script
-│   ├── validate_all_blog_posts.sh  # Bulk validation
+│   ├── check.sh       # Main validation script
+│   ├── checks.sh      # Bulk validation
 │   └── tests/                      # Test suite
 │       ├── run_tests.sh            # Test runner
 │       ├── test_framework.sh       # Test framework
-│       ├── valid_post_test.sh      # Valid post tests
-│       ├── frontmatter_test.sh      # Frontmatter tests
-│       ├── hero_image_test.sh      # Hero image tests
-│       ├── format_test.sh          # Format tests
-│       ├── tags_test.sh            # Tags tests
-│       ├── structure_test.sh       # Structure tests
-│       ├── content_test.sh         # Content tests
-│       ├── footnote_test.sh        # Footnote tests
-│       ├── edge_case_test.sh       # Edge case tests
-│       ├── relative_links_test.sh  # Relative links tests
-│       └── validate_all_blog_posts_test.sh  # Bulk validation tests
+│       ├── bpqgv/
+│       │   ├── checks_test.sh          # Bulk validation tests
+│       │   └── assisted_checks_test.sh # AI checks tests
+│       └── checks/
+│           ├── valid_post_test.sh      # Valid post tests
+│           ├── frontmatter_test.sh     # Frontmatter tests
+│           ├── hero_image_test.sh      # Hero image tests
+│           ├── format_test.sh          # Format tests
+│           ├── tags_test.sh            # Tags tests
+│           ├── structure_test.sh       # Structure tests
+│           ├── content_test.sh         # Content tests
+│           ├── footnote_test.sh        # Footnote tests
+│           ├── edge_case_test.sh       # Edge case tests
+│           └── relative_links_test.sh  # Relative links tests
 ├── Makefile                        # Build and check targets
 └── README.md                       # This file
 ```
 
 ### Adding a New Automated Check
 
-1. **Create the validation function** in `scripts/validate_blog_post.sh`:
+1. **Create the validation function** in `scripts/check.sh`:
 
    ```bash
    validate_my_new_check() {
@@ -671,7 +730,9 @@ Run `make fmt` to auto-format all scripts.
 - C3: Descriptive link text
 - C4: Table headers
 
-### Manual Checks (8)
+### Manual validate blog posts (8)
+
+8 manual quality gates with **AI-assisted validation available** via `assisted_checks.sh`:
 
 - A2: Fact-checking / Source verification
 - A6: Link relevance
@@ -682,25 +743,29 @@ Run `make fmt` to auto-format all scripts.
 - C6: Argument balance
 - C7: Writing quality
 
+The `assisted_checks.sh` script automates these checks using Mistral models with dedicated prompt templates in the `prompts/` directory.
+
 ## Future Enhancements
+
+**Note:** Manual checks A2, A6, B3, B7, B8, C5, C6, and C7 now support **AI-assisted validation** via the `assisted_checks.sh` script using Mistral models.
 
 Potential integrations to increase automation coverage:
 
 | Check | API/Tool | Purpose | Current Status |
 | ----- | -------- | ------- | -------------- |
-| A2 | Google Fact Check Tools | Automate fact-checking | Manual |
-| A2 | Zyla API | Automated fact verification | Manual |
-| A6 | Reboot Relevancy Rating | Automated link relevance | Manual |
-| A6 | IBM Watson | NLP-based link analysis | Manual |
-| C5 | Copyleaks API | Automated plagiarism detection | Manual |
-| C5 | Grammarly API | Automated originality check | Manual |
-| C5 | Winston AI | AI-powered plagiarism detection | Manual |
-| B7 | Lexis Create+ | Automated quote validation | Manual |
-| B7 | QuoteRight | Quote accuracy verification | Manual |
-| C7 | ApyHub | Readability scoring | Manual |
-| C7 | ReadablePro | Enhanced readability analysis | Manual |
-| C7 | IBM Watson Tone Analyzer | Tone and style analysis | Manual |
-| C7 | Sapling.ai | Writing quality suggestions | Manual |
+| A2 | Google Fact Check Tools | Automate fact-checking | **AI-Assisted Available** |
+| A2 | Zyla API | Automated fact verification | **AI-Assisted Available** |
+| A6 | Reboot Relevancy Rating | Automated link relevance | **AI-Assisted Available** |
+| A6 | IBM Watson | NLP-based link analysis | **AI-Assisted Available** |
+| C5 | Copyleaks API | Automated plagiarism detection | **AI-Assisted Available** |
+| C5 | Grammarly API | Automated originality check | **AI-Assisted Available** |
+| C5 | Winston AI | AI-powered plagiarism detection | **AI-Assisted Available** |
+| B7 | Lexis Create+ | Automated quote validation | **AI-Assisted Available** |
+| B7 | QuoteRight | Quote accuracy verification | **AI-Assisted Available** |
+| C7 | ApyHub | Readability scoring | **AI-Assisted Available** |
+| C7 | ReadablePro | Enhanced readability analysis | **AI-Assisted Available** |
+| C7 | IBM Watson Tone Analyzer | Tone and style analysis | **AI-Assisted Available** |
+| C7 | Sapling.ai | Writing quality suggestions | **AI-Assisted Available** |
 
 ## Troubleshooting
 

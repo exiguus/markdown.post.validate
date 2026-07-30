@@ -15,7 +15,7 @@ readonly FAILURE=1
 # Script name for usage messages
 SCRIPT_NAME="$(basename "$0")"
 
-# Default cache behavior (matches validate_blog_post.sh default)
+# Default cache behavior (matches check.sh default)
 CACHE_ENABLED=true
 
 # Print usage information
@@ -82,7 +82,8 @@ main() {
         shift 2
         ;;
       --directory=*)
-        posts_dir="${1#*=%/}/"
+        posts_dir="${1#*=}"
+        posts_dir="${posts_dir%/}/"
         shift
         ;;
       -*)
@@ -144,7 +145,7 @@ main() {
 
     # Build the validate command with flags
     local validate_cmd
-    validate_cmd="$(dirname "$0")/validate_blog_post.sh"
+    validate_cmd="$(dirname "$0")/check.sh"
 
     if [[ "$VERBOSE" == "true" ]]; then
       validate_cmd+=" -v"
@@ -157,10 +158,10 @@ main() {
     # Run validation
     if $validate_cmd "$file"; then
       ((passed++)) || true
-      echo "  Status: PASSED"
+      echo "Status: PASSED"
     else
       ((failed++)) || true
-      echo "  Status: FAILED" >&2
+      echo "Status: FAILED" >&2
       failed_files+=("$file")
 
       if [[ "$continue_on_failure" == "false" ]]; then
@@ -177,9 +178,9 @@ main() {
   echo "========================================"
   echo "Validation Summary"
   echo "========================================"
-  echo "Total posts:  $total"
-  echo -e "Passed:        $passed"
-  echo -e "Failed:        $failed"
+  echo "Total posts:       $total"
+  echo "Passed:            $passed"
+  echo "Failed:            $failed"
 
   if [[ $failed -gt 0 ]]; then
     echo ""

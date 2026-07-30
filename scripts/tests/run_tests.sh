@@ -8,14 +8,7 @@ set -o nounset
 set -o pipefail
 
 # Source the test framework
-source "$(dirname "${0:-}")/test_framework.sh"
-
-# Colors for output (YELLOW is used here but not in framework)
-if [[ -t 1 ]]; then
-  readonly YELLOW='\033[0;33m'
-else
-  readonly YELLOW=''
-fi
+source "$(dirname "${BASH_SOURCE[0]}")/test_framework.sh"
 
 #######################
 # Main Function       #
@@ -27,36 +20,48 @@ main() {
 
   echo ""
   echo "======================================="
-  echo "Blog Post Validator Test Suite"
+  echo "Blog Post Quality Gate Validator Test Suite"
   echo "======================================="
   echo ""
 
   # Check if validator exists
-  local validator
-  validator="$(dirname "${0:-}")/../validate_blog_post.sh"
-  if [[ ! -f "$validator" ]]; then
-    echo -e "${RED}Error: Validator script not found${NC}" >&2
-    exit 1
-  fi
+  local quality_gates=(
+    "check.sh"
+    "checks.sh"
+    "assisted_checks.sh"
+  )
 
-  # Check if validator is executable
-  if [[ ! -x "$validator" ]]; then
-    echo -e "${YELLOW}Warning: Validator script is not executable${NC}" >&2
-  fi
+  for quality_gate in "${quality_gates[@]}"; do
+    local quality_gate_path
+    quality_gate_path="$(dirname "${0:-}")/../${quality_gate}"
+    if [[ ! -f "$quality_gate_path" ]]; then
+      echo -e "${RED}Error: ${quality_gate} not found at ${quality_gate_path}${NC}" >&2
+      exit 1
+    fi
+
+    # Check if validator is executable
+    if [[ ! -x "$quality_gate_path" ]]; then
+      echo -e "${YELLOW}Warning: ${quality_gate} is not executable${NC}" >&2
+    fi
+  done
 
   # Source all category test files
   local test_files=(
-    "valid_post_test.sh"
-    "frontmatter_test.sh"
-    "hero_image_test.sh"
-    "format_test.sh"
-    "tags_test.sh"
-    "structure_test.sh"
-    "content_test.sh"
-    "footnote_test.sh"
-    "edge_case_test.sh"
-    "relative_links_test.sh"
-    "validate_all_blog_posts_test.sh"
+    "bpqgv/checks_test.sh"
+    "bpqgv/assisted_checks_test.sh"
+    "bpqgv/status_parser_test.sh"
+    "bpqgv/cache_lib_test.sh"
+    "bpqgv/e2e_cli_test.sh"
+    "checks/valid_post_test.sh"
+    "checks/frontmatter_test.sh"
+    "checks/hero_image_test.sh"
+    "checks/format_test.sh"
+    "checks/tags_test.sh"
+    "checks/structure_test.sh"
+    "checks/content_test.sh"
+    "checks/footnote_test.sh"
+    "checks/edge_case_test.sh"
+    "checks/relative_links_test.sh"
   )
 
   local test_dir
