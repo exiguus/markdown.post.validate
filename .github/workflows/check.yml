@@ -16,7 +16,7 @@ jobs:
         uses: moonrepo/setup-rust@v1.3.0
 
       - name: Cache Rust toolchain and lychee
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             ~/.cargo/bin/
