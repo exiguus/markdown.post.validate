@@ -10,6 +10,7 @@
 !.github/
 !.github/**
 !.gitignore
+!.editorconfig
 
 # Ignore the TODO file, as it is a personal task list and not relevant to the project.
 TODO.md
