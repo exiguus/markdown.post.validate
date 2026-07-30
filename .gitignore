@@ -1,0 +1,21 @@
+# .gitignore
+
+# Ignore dotfiles but allow .sample ending files (e.g., .env.sample).
+.*
+!.*.sample
+!.*.sample/
+!.*.sample/**
+!.githooks/
+!.githooks/**
+!.github/
+!.github/**
+!.gitignore
+
+# Ignore the TODO file, as it is a personal task list and not relevant to the project.
+TODO.md
+
+# Generated files and directories.
+*.pdf
+*.log
+*.tmp
+*.bak

@@ -1,0 +1,49 @@
+name: Quality Assurance
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate-posts:
+    name: Validate Posts with Quality Gates
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Rust
+        uses: moonrepo/setup-rust@v1.3.0
+
+      - name: Cache Rust toolchain and lychee
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+          key: ${{ runner.os }}-cargo-lychee-${{ hashFiles('.github/workflows/qa.yml', 'scripts/validate_blog_post.sh') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-lychee-
+            ${{ runner.os }}-cargo-
+
+      - name: Cache validation results
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/blog-validator
+          key: ${{ runner.os }}-blog-validator-${{ hashFiles('scripts/validate_blog_post.sh') }}
+          restore-keys: |
+            ${{ runner.os }}-blog-validator-
+
+      - name: Install lychee
+        run: cargo install lychee
+
+      - name: Run Post Quality Gate Validation
+        run: ./scripts/validate_all_blog_posts.sh

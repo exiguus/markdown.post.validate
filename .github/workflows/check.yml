@@ -1,0 +1,38 @@
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Rust
+        uses: moonrepo/setup-rust@v1.3.0
+
+      - name: Cache Rust toolchain and lychee
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+          key: ${{ runner.os }}-cargo-lychee-${{ hashFiles('.github/workflows/check.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-lychee-
+            ${{ runner.os }}-cargo-
+
+      - name: Install lychee
+        run: cargo install lychee
+
+      - name: Run install
+        run: make install
+
+      - name: Run checks
+        run: make check
