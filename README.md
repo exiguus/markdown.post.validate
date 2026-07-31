@@ -108,7 +108,7 @@ The bulk validator checks all markdown posts in a directory, excluding files sta
 
 ```bash
 ./scripts/checks.sh --help
-Usage: checks.sh [-h|--help] [-v|--verbose] [-c|--no-cache] [-k|--continue] [-d|--directory DIRECTORY]
+Usage: checks.sh [-h|--help] [-v|--verbose] [-c|--no-cache] [-k|--continue] [-d|--directory DIRECTORY] [-i|--ignore PATTERN]
 
 Validates all blog post markdown files against blog post quality standards.
 
@@ -118,6 +118,7 @@ Options:
   -c, --no-cache         Disable caching of validation results.
   -k, --continue         Continue validation on failure (don't fail-fast).
   -d, --directory DIRECTORY  Directory to search for posts (default: posts/).
+  -i, --ignore PATTERN   Ignore files whose path contains PATTERN. Can be specified multiple times.
 
 Exit Codes:
   0    All checks passed.
@@ -135,6 +136,9 @@ Examples:
   checks.sh -d custom/posts/        # Validate posts in custom directory
   checks.sh --directory custom/posts/ # Validate posts in custom directory (long form)
   checks.sh -v -c -k                # Verbose, no cache, continue on failure
+  checks.sh -i report/              # Ignore files with 'report/' in path
+  checks.sh --ignore report/        # Ignore files with 'report/' in path (long form)
+  checks.sh -i report/ -i temp/     # Ignore multiple patterns
 ```
 
 ### AI-Assisted Manual Checks
@@ -610,7 +614,7 @@ make test
 
 ### Test Results
 
-- **Total Tests**: 67 automated tests
+- **Total Tests**: 72+ automated tests
 - **Coverage**: All validation functions and AI check scripts tested
 - **Test Files**: 12 category-specific test suites
 - **Mock Posts**: 30+ test fixtures in `scripts/mocks/`
@@ -628,7 +632,7 @@ To add a new test:
 
 ### Project Structure
 
-```
+```text
 .
 ├── posts/                          # Example blog posts
 │   ├── 2026-07-29-the-art-of-debugging.md

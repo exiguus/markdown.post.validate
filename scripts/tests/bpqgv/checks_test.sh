@@ -231,6 +231,42 @@ checks_test() {
   # Cleanup
   rm -rf "$test_dir"
 
+  # Test 12: Ignore flag with single pattern
+  test_dir=$(mktemp -d) || return 1
+  mkdir -p "${test_dir}/subdir/report"
+  create_valid_post "${test_dir}/2026-01-01-valid.md" "Valid Post" "2026-01-01"
+  create_valid_post "${test_dir}/subdir/report/B3.md" "Report Post" "2026-01-02"
+
+  run_command_test "Ignore flag excludes matching paths" \
+    "cd \"${PROJECT_DIR}\" && ${VALIDATOR_ALL} -i report/ -d ${test_dir}/ 2>&1" \
+    "${SUCCESS}" \
+    "Total posts:       1"
+
+  # Test 13: Ignore flag with multiple patterns
+  mkdir -p "${test_dir}/temp"
+  create_valid_post "${test_dir}/temp/2026-01-03-temp.md" "Temp Post" "2026-01-03"
+  create_valid_post "${test_dir}/2026-01-04-draft.md" "Draft Post" "2026-01-04"
+
+  run_command_test "Multiple ignore patterns work" \
+    "cd \"${PROJECT_DIR}\" && ${VALIDATOR_ALL} -i report/ -i temp/ -d ${test_dir}/ 2>&1" \
+    "${SUCCESS}" \
+    "Total posts:       2"
+
+  # Test 14: Long option --ignore
+  run_command_test "Long option --ignore works" \
+    "cd \"${PROJECT_DIR}\" && ${VALIDATOR_ALL} --ignore report/ -d ${test_dir}/ 2>&1" \
+    "${SUCCESS}" \
+    "Total posts:       3"
+
+  # Test 15: Long option --ignore with equals
+  run_command_test "Long option --ignore= works" \
+    "cd \"${PROJECT_DIR}\" && ${VALIDATOR_ALL} --ignore=report/ -d ${test_dir}/ 2>&1" \
+    "${SUCCESS}" \
+    "Total posts:       3"
+
+  # Cleanup
+  rm -rf "$test_dir"
+
   # Print category summary only when executed directly
   if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     print_summary "Validate All Blog Posts "

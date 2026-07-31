@@ -21,7 +21,7 @@ CACHE_ENABLED=true
 # Print usage information
 usage() {
   cat <<EOF
-Usage: ${SCRIPT_NAME} [-h|--help] [-v|--verbose] [-c|--no-cache] [-k|--continue] [-d|--directory DIRECTORY]
+Usage: ${SCRIPT_NAME} [-h|--help] [-v|--verbose] [-c|--no-cache] [-k|--continue] [-d|--directory DIRECTORY] [-i|--ignore PATTERN]
 
 Validates all blog post markdown files against blog post quality standards.
 
@@ -31,6 +31,8 @@ Options:
   -c, --no-cache         Disable caching of validation results.
   -k, --continue         Continue validation on failure (don't fail-fast).
   -d, --directory DIRECTORY  Directory to search for posts (default: posts/).
+  -i, --ignore PATTERN   Ignore files whose path contains PATTERN.
+                         Can be specified multiple times to ignore multiple patterns.
 
 Exit Codes:
   ${SUCCESS}    All checks passed.
@@ -48,6 +50,9 @@ Examples:
   ${SCRIPT_NAME} -d custom/posts/        # Validate posts in custom directory
   ${SCRIPT_NAME} --directory custom/posts/ # Validate posts in custom directory (long form)
   ${SCRIPT_NAME} -v -c -k                # Verbose, no cache, continue on failure
+  ${SCRIPT_NAME} -i report/              # Ignore files with 'report/' in path
+  ${SCRIPT_NAME} --ignore report/        # Ignore files with 'report/' in path (long form)
+  ${SCRIPT_NAME} -i report/ -i temp/     # Ignore multiple patterns
 EOF
 }
 
@@ -57,6 +62,7 @@ main() {
   local continue_on_failure="false"
   local posts_dir="posts/"
   local VERBOSE="false"
+  local ignore_patterns=()
 
   # Handle long options first
   while [[ $# -gt 0 ]]; do
@@ -86,6 +92,14 @@ main() {
         posts_dir="${posts_dir%/}/"
         shift
         ;;
+      --ignore)
+        ignore_patterns+=("$2")
+        shift 2
+        ;;
+      --ignore=*)
+        ignore_patterns+=("${1#*=}")
+        shift
+        ;;
       -*)
         # Short options
         break
@@ -97,7 +111,7 @@ main() {
   done
 
   # Parse short options
-  while getopts "hcvkd:" opt; do
+  while getopts "hcvkd:i:" opt; do
     case "$opt" in
       h)
         usage
@@ -114,6 +128,9 @@ main() {
         ;;
       d)
         posts_dir="${OPTARG%/}/"
+        ;;
+      i)
+        ignore_patterns+=("$OPTARG")
         ;;
       *)
         echo "Unknown option: -$opt" >&2
@@ -138,6 +155,12 @@ main() {
 
   echo "Validating all posts in: $posts_dir"
   echo "----------------------------------------"
+
+  # Build find command with ignore patterns
+  local find_cmd=("find" "$posts_dir" -name '*.md' -type f '!' -name '_*')
+  for pattern in "${ignore_patterns[@]}"; do
+    find_cmd+=('!' -path "*${pattern}*")
+  done
 
   while IFS= read -r file; do
     ((total++)) || true
@@ -172,7 +195,7 @@ main() {
       fi
     fi
     echo ""
-  done < <(find "$posts_dir" -name '*.md' -type f ! -name '_*' | sort)
+  done < <("${find_cmd[@]}" | sort)
 
   # Print summary
   echo "========================================"
