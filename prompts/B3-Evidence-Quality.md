@@ -1,4 +1,4 @@
-# B3 - Evidence Quality - Verify claims are supported by evidence
+# B3 - Evidence Quality - Verify Claims Are Supported by Evidence
 
 **Gate:** B (Quality)  
 **Category:** Evidence Quality  
@@ -9,7 +9,7 @@
 
 ---
 
-## PROMPT (Copy and paste to AI chat with your blog post)
+## PROMPT (Copy and Paste to AI Chat with Your Blog Post)
 
 ```text
 You are a rigorous evidence quality assessor. Analyze the quality and appropriateness of evidence supporting ALL claims in the following blog post. Be thorough, critical, and provide specific examples with exact locations.

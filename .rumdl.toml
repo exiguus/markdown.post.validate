@@ -6,14 +6,15 @@
 # Global configuration options
 [global]
 # List of rules to disable (uncomment and modify as needed)
-# disable = ["MD013", "MD033"]
+# Disable MD033 inline HTML
+disable = ["MD033"]
 
 # List of rules to enable exclusively (replaces defaults; only these rules will run)
 # enable = ["MD001", "MD003", "MD004"]
 
 # Additional rules to enable on top of defaults (additive, does not replace)
 # Use this to activate opt-in rules like MD060, MD063, MD072, MD073, MD074
-# extend-enable = ["MD060", "MD063"]
+extend-enable = ["MD060", "MD063", "MD073", "MD074"]
 
 # Additional rules to disable on top of the disable list (additive)
 # extend-disable = ["MD041"]
@@ -37,6 +38,7 @@ exclude = [
 
     # Specific files or patterns
     "CHANGELOG.md",
+    "CHANGELOG_*.md",
     "LICENSE.md",
 ]
 
@@ -45,24 +47,24 @@ respect-gitignore = true
 
 # Markdown flavor/dialect (uncomment to enable)
 # Options: standard (default), gfm, commonmark, mkdocs, mdx, pandoc, quarto, obsidian, kramdown, azure_devops, myst
-# flavor = "mkdocs"
+flavor = "commonmark"
 
 # Rule-specific configurations (uncomment and modify as needed)
 
 # [MD003]
 # style = "atx"  # Heading style (atx, atx_closed, setext)
 
-# [MD004]
-# style = "asterisk"  # Unordered list style (asterisk, plus, dash, consistent)
+[MD004]
+style = "dash"  # Unordered list style (asterisk, plus, dash, consistent)
 
 # [MD007]
 # indent = 4  # Unordered list indentation
 
-# [MD013]
+[MD013]
 line-length = 256  # Line length
-# code-blocks = false  # Exclude code blocks from line length check
-# tables = false  # Exclude tables from line length check
-# headings = true  # Include headings in line length check
+code-blocks = false  # Exclude code blocks from line length check
+tables = false  # Exclude tables from line length check
+headings = true  # Include headings in line length check
 
 # [MD044]
 # names = ["rumdl", "Markdown", "GitHub"]  # Proper names that should be capitalized correctly

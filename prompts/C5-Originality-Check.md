@@ -1,4 +1,4 @@
-# C5 - Originality Check - Verify content is original, not plagiarized
+# C5 - Originality Check - Verify Content Is Original, Not Plagiarized
 
 **Gate:** C (Accessibility & Style)  
 **Category:** Originality Check  
@@ -9,7 +9,7 @@
 
 ---
 
-## PROMPT (Copy and paste to AI chat with your blog post)
+## PROMPT (Copy and Paste to AI Chat with Your Blog Post)
 
 ```text
 You are a content originality analyst and plagiarism detection specialist. Analyze this blog post for writing style consistency, unique voice, and potential external content issues. Be thorough and provide specific evidence.

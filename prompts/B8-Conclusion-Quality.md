@@ -1,4 +1,4 @@
-# B8 - Conclusion Quality - Assess conclusion effectiveness and synthesis
+# B8 - Conclusion Quality - Assess Conclusion Effectiveness and Synthesis
 
 **Gate:** B (Quality)
 **Category:** Conclusion Quality
@@ -9,7 +9,7 @@
 
 ---
 
-## PROMPT (Copy and paste to AI chat with your blog post)
+## PROMPT (Copy and Paste to AI Chat with Your Blog Post)
 
 ```text
 You are a senior editor evaluating conclusion effectiveness. Analyze the conclusion section of this blog post for quality, synthesis, impact, and structural integrity. Be critical and specific.

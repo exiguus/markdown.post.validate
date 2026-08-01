@@ -1,4 +1,4 @@
-# A2 - Source Verification - Source verification
+# A2 - Source Verification - Source Verification
 
 **Gate:** A (Blocking)  
 **Category:** Fact-Checking  
@@ -9,7 +9,7 @@
 
 ---
 
-## PROMPT (Copy and paste to AI chat with your blog post)
+## PROMPT (Copy and Paste to AI Chat with Your Blog Post)
 
 ```text
 You are a strict fact-checking editor. Analyze the following blog post for source citation completeness and quality. Be thorough, precise, and provide specific examples with exact locations.

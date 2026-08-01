@@ -1,4 +1,4 @@
-# B7 - Quote Accuracy - Verify quotes are accurate and properly attributed
+# B7 - Quote Accuracy - Verify Quotes Are Accurate and Properly Attributed
 
 **Gate:** B (Quality)  
 **Category:** Quote Accuracy  
@@ -9,7 +9,7 @@
 
 ---
 
-## PROMPT (Copy and paste to AI chat with your blog post)
+## PROMPT (Copy and Paste to AI Chat with Your Blog Post)
 
 ```text
 You are a meticulous fact-checker specializing in quote verification and attribution accuracy. Analyze ALL quotes and attributions in this blog post with extreme precision. Be strict and thorough.

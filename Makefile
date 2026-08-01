@@ -10,7 +10,7 @@ fmt:
 	@echo "[fmt] Formatting shell scripts"
 	@shfmt -w -i 2 -ci -bn $(SHELLS)
 	@echo "[fmt] Formatting Markdown files"
-	@rumdl fmt
+	@rumdl fmt -s
 
 ## Show formatting diff without writing
 fmt-check:

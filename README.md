@@ -737,7 +737,7 @@ Run `make fmt` to auto-format all scripts.
 - C3: Descriptive link text
 - C4: Table headers
 
-### Manual validate blog posts (8)
+### Manual Validate Blog Posts (8)
 
 8 manual quality gates with **AI-assisted validation available** via `assisted_checks.sh`:
 
@@ -778,7 +778,7 @@ Potential integrations to increase automation coverage:
 
 ### Common Issues
 
-#### "Command not found: lychee"
+#### "Command Not Found: Lychee"
 
 Install lychee for link validation:
 
@@ -788,7 +788,7 @@ cargo install lychee
 
 Or the check will be skipped with a warning.
 
-#### "set: -o pipefail: invalid option"
+#### "Set: -O Pipefail: Invalid Option"
 
 Ensure you're using Bash 4+. Check your bash version:
 
@@ -796,7 +796,7 @@ Ensure you're using Bash 4+. Check your bash version:
 bash --version
 ```
 
-#### "Test failures with exit code issues"
+#### "Test Failures with Exit Code Issues"
 
 Make sure all scripts have the required header:
 

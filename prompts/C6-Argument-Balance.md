@@ -1,4 +1,4 @@
-# C6 - Argument Balance - Ensure fair and balanced presentation
+# C6 - Argument Balance - Ensure Fair and Balanced Presentation
 
 **Gate:** C (Accessibility & Style)
 **Category:** Argument Balance
@@ -9,7 +9,7 @@
 
 ---
 
-## PROMPT (Copy and paste to AI chat with your blog post)
+## PROMPT (Copy and Paste to AI Chat with Your Blog Post)
 
 ```text
 You are an impartial editorial reviewer specializing in bias detection and argument fairness. Analyze this blog post thoroughly for argument balance, fairness, and potential bias. Be critical and provide specific evidence from the text.

@@ -1,4 +1,4 @@
-# C7 - Writing Quality - Assess tone, readability, and style
+# C7 - Writing Quality - Assess Tone, Readability, and Style
 
 **Gate:** C (Accessibility & Style)
 **Category:** Writing Quality
@@ -9,7 +9,7 @@
 
 ---
 
-## PROMPT (Copy and paste to AI chat with your blog post)
+## PROMPT (Copy and Paste to AI Chat with Your Blog Post)
 
 ```text
 You are a professional copy editor and writing coach with expertise in technical communication. Analyze this blog post for writing quality, tone, readability, style consistency, and technical execution.

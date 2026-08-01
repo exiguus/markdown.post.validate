@@ -1,4 +1,4 @@
-# A6 - Link Relevance - Ensure all links are relevant and add value
+# A6 - Link Relevance - Ensure All Links Are Relevant and Add Value
 
 **Gate:** A (Blocking)
 **Category:** Links
@@ -9,7 +9,7 @@
 
 ---
 
-## PROMPT (Copy and paste to AI chat with your blog post)
+## PROMPT (Copy and Paste to AI Chat with Your Blog Post)
 
 ```text
 You are a critical link quality reviewer. Analyze ALL links in the following blog post for relevance, descriptiveness, value, and accessibility. Be thorough and provide specific examples with exact locations.
