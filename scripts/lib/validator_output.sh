@@ -44,6 +44,42 @@ warn() {
   ((warnings++)) || true
 }
 
+# Return the best label for validation output.
+# Uses the frontmatter title when present, otherwise falls back to the file path.
+# Args:
+#   $1: File path
+#   $2: File content
+format_validation_target() {
+  local file_path="$1"
+  local content="$2"
+
+  local title
+  title=$(awk '
+    BEGIN {
+      fence_count = 0
+    }
+    /^\+\+\+$/ {
+      fence_count++
+      next
+    }
+    fence_count == 1 && /^title = / {
+      sub(/^title = "/, "")
+      sub(/"$/, "")
+      print
+      exit
+    }
+    fence_count == 2 {
+      exit
+    }
+  ' <<<"$content" || true)
+
+  if [[ -n "$title" ]]; then
+    echo "$title"
+  else
+    echo "$file_path"
+  fi
+}
+
 # Print usage information.
 usage() {
   cat <<EOF

@@ -24,7 +24,7 @@ run_command_test \
   "check.sh e2e passes valid post" \
   "bash --norc --noprofile '${PROJECT_DIR}/check.sh' '${PROJECT_DIR}/mocks/valid_post.md' 2>&1" \
   0 \
-  "Validating:" \
+  "Validating: Valid Test Post" \
   "Result: PASSED"
 
 # check.sh: invalid post fails end to end.
@@ -32,6 +32,7 @@ run_command_test \
   "check.sh e2e fails invalid post" \
   "bash --norc --noprofile '${PROJECT_DIR}/check.sh' '${PROJECT_DIR}/mocks/missing_title.md' 2>&1" \
   1 \
+  "Validating: ${PROJECT_DIR}/mocks/missing_title.md" \
   "Validation Summary:" \
   "Result: FAILED"
 

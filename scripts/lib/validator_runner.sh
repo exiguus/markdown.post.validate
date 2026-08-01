@@ -15,15 +15,18 @@ run_validation() {
   local file_path="$1"
   local verbose="$2"
 
-  echo "Validating: $file_path"
-  echo "----------------------------------------"
-
   # Read file content.
   local content
   content=$(cat "$file_path") || {
     echo "Error: Cannot read file '$file_path'" >&2
     return "$FAILURE"
   }
+
+  local validation_target
+  validation_target=$(format_validation_target "$file_path" "$content")
+
+  echo "Validating: $validation_target"
+  echo "----------------------------------------"
 
 
   run_configured_checks "$file_path" "$verbose" "$content"
