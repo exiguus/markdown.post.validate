@@ -77,8 +77,10 @@ validate_footnotes() {
     done
 
     # Sort numerically.
-    IFS=$'\n' read -d '' -ra sorted < <(sort -n <<<"${found_nums[*]}") || true
-    unset IFS
+    local sorted=()
+    if [[ ${#found_nums[@]} -gt 0 ]]; then
+      mapfile -t sorted < <(printf '%s\n' "${found_nums[@]}" | sort -n)
+    fi
 
     # Check for gaps in sequence.
     local prev=0
