@@ -1,8 +1,8 @@
 # A6 - Link Relevance - Ensure all links are relevant and add value
 
-**Gate:** A (Blocking)  
-**Category:** Links  
-**Severity:** ERROR (Must pass)  
+**Gate:** A (Blocking)
+**Category:** Links
+**Severity:** ERROR (Must pass)
 **Type:** Manual
 
 > **Note:** This is an AI prompt template for manual quality gate A6. Copy the PROMPT section below and paste it into an AI chat along with your blog post content to assist with the manual link relevance review process.
@@ -149,7 +149,7 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 | Total links | X | A | B | - |
 | External links | Y | A1 | B1 | - |
 | Internal links | Z | A2 | B2 | - |
-| Affiliate links | W | - | W | [DISCLOSURE: YES | NO] |
+| Affiliate links | W | - | W | DISCLOSURE: YES/NO |
 
 ---
 
@@ -158,8 +158,8 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 | **#** | **Link Text** | **URL** | **In Code Block** | **Descriptiveness** | **Relevance** | **Value** | **Quality Score** | **Status** | **Issues** |
 |-------|--------------|---------|------------------|---------------------|--------------|-----------|------------------|------------|------------|
 | 1 | [exact text] | [full URL] | YES | N/A | N/A | N/A | N/A | EXEMPT | - |
-| 2 | [exact text] | [full URL] | NO | 5 | 5 | 5 | 5.0 | EXCELLENT | PASS | - |
-| 3 | [exact text] | [full URL] | NO | 2 | 3 | 2 | 2.3 | POOR | FAIL | non-descriptive |
+| 2 | [exact text] | [full URL] | NO | 5 | 5 | 5 | 5.0 | EXCELLENT | - |
+| 3 | [exact text] | [full URL] | NO | 2 | 3 | 2 | 2.3 | POOR | non-descriptive |
 
 ---
 
@@ -227,9 +227,9 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 | **Metric** | **Value** | **Assessment** | **Recommendation** |
 |------------|-----------|----------------|------------------|
 | **Total Links** | X | - | - |
-| **Links per 1000 words** | Y | Normal (3-8) | High (>8) | Low (<3) | [Adjust if outside normal range] |
-| **External vs Internal Ratio** | A:B | Balanced | Too external | Too internal | [Diversify or reduce] |
-| **Density Assessment** | - | NORMAL | LOW | HIGH | [Explanation] |
+| **Links per 1000 words** | Y | Normal (3-8)/High (>8)/Low (<3) | [Adjust if outside normal range] |
+| **External vs Internal Ratio** | A:B | Balanced/Too external/Too internal | [Diversify or reduce] |
+| **Density Assessment** | - | NORMAL/LOW/HIGH | [Explanation] |
 
 ---
 
@@ -253,7 +253,7 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 | **Fair links** | C | C/B% | Quality score 2.5-3.4 |
 | **Poor links** | D | D/B% | Quality score 1.0-2.4 |
 | **Problematic links** | D | D/B% | [list specific issues] |
-| **Verdict** | - | - | PASS (no problematic links) | FAIL (D problematic links found) | NOT_APPLICABLE (no links found) |
+| **Verdict** | - | - | PASS/FAIL/NOT_APPLICABLE |
 
 ---
 

@@ -1,8 +1,8 @@
 # B8 - Conclusion Quality - Assess conclusion effectiveness and synthesis
 
-**Gate:** B (Quality)  
-**Category:** Conclusion Quality  
-**Severity:** WARNING  
+**Gate:** B (Quality)
+**Category:** Conclusion Quality
+**Severity:** WARNING
 **Type:** Manual
 
 > **Note:** This is an AI prompt template for manual quality gate B8. Copy the PROMPT section below and paste it into an AI chat along with your blog post content to assist with the manual conclusion quality review process.
@@ -122,8 +122,8 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 | **Location** | [Section name or "Final X% of post"] | - |
 | **Starting at** | Line [X] / Paragraph [Y] | - |
 | **Ending at** | Line [X] / Paragraph [Y] | - |
-| **Word count** | [X] words | [Ideal: 100-250 | TOO SHORT | TOO LONG] |
-| **Percentage of post** | [X]% | [Ideal: 10-20% | TOO SHORT | TOO LONG] |
+| **Word count** | [X] words | Ideal: 100-250/TOO SHORT/TOO LONG |
+| **Percentage of post** | [X]% | Ideal: 10-20%/TOO SHORT/TOO LONG |
 | **Explicit heading** | YES | "[Heading text]" |
 | **Explicit heading** | NO | [Suggested heading: "Conclusion"] |
 
@@ -299,7 +299,9 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 
 2. **Issue:** TOO SHORT at lines 108-111
    - **Current:** "Rust offers a compelling combination..."
-   - **Suggested:** Expand to include: "In this guide, we explored Rust's installation, your first program, and the unique ownership system with its borrow checker. These features enable you to write fast, safe code. While the learning curve is steep, the reward is code that is reliable and maintainable. Whether you're building operating systems or web services, Rust provides the tools you need. Start your journey today by installing Rust and trying the examples in this guide."
+   - **Suggested:** Expand to include: "In this guide, we explored Rust's installation, your first program, and the unique ownership system with its borrow checker.
+   These features enable you to write fast, safe code. While the learning curve is steep, the reward is code that is reliable and maintainable.
+   Whether you're building operating systems or web services, Rust provides the tools you need. Start your journey today by installing Rust and trying the examples in this guide."
    - **Rationale:** Properly synthesizes all main points and provides call to action
 
 3. **Issue:** MISSING MAIN POINTS at lines 108-111

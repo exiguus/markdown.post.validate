@@ -120,9 +120,9 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 | **Metric** | **Count** | **Target** | **Status** | **Notes** |
 |------------|-----------|------------|------------|-----------|
 | Total factual claims | X | - | - | - |
-| Properly cited | Y | 100% | [PASS | FAIL] | - |
-| Uncited | Z | 0 | [PASS | FAIL] | - |
-| Citation rate | Y/X% | 100% | [PASS | FAIL] | - |
+| Properly cited | Y | 100% | PASS/FAIL | - |
+| Uncited | Z | 0 | PASS/FAIL | - |
+| Citation rate | Y/X% | 100% | PASS/FAIL | - |
 
 ---
 
@@ -132,7 +132,7 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 
 | **#** | **Claim (first 100 chars)** | **Location** | **Source Citation** | **Quality** | **Format** | **Status** |
 |-------|----------------------------|--------------|--------------------|------------|------------|------------|
-| 1 | [Exact or paraphrased claim] | [Section:pY:lineZ] | [Citation as in post] | LEVEL 1 | [COMPLETE | MISSING ELEMENTS] | PASS |
+| 1 | [Exact or paraphrased claim] | [Section:pY:lineZ] | [Citation as in post] | LEVEL 1 | COMPLETE/MISSING ELEMENTS | PASS |
 
 **Cited Claims Details:**
 1. **Claim:** [Exact quote or paraphrase from post]
@@ -153,7 +153,7 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 
 | **#** | **Claim (first 100 chars)** | **Location** | **Type** | **Suggested Source Type** | **Web Search Suggestion** | **Severity** |
 |-------|----------------------------|--------------|----------|--------------------------|----------------------------|--------------|
-| 1 | [Exact claim text] | [Section:pY:lineZ] | [statistic | historical | technical | comparative | superlative | trend] | [LEVEL 1-2 suggested] | ["exact search query"] | HIGH |
+| 1 | [Exact claim text] | [Section:pY:lineZ] | statistic/historical/technical/comparative/superlative/trend | [LEVEL 1-2 suggested] | ["exact search query"] | HIGH |
 
 **Uncited Claims Details:**
 1. **Claim:** [Exact quote from post]
@@ -188,7 +188,7 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 
 | **#** | **Claim** | **Location** | **Missing Element** | **Current Citation** | **Suggested Fix** |
 |-------|----------|--------------|---------------------|----------------------|-------------------|
-| 1 | [Claim] | [Section:pY:lineZ] | [AUTHOR | PUBLICATION | DATE | URL] | ["Current citation"] | ["Complete citation"] |
+| 1 | [Claim] | [Section:pY:lineZ] | AUTHOR/PUBLICATION/DATE/URL | ["Current citation"] | ["Complete citation"] |
 
 [Repeat for all claims with incomplete citations]
 
@@ -239,7 +239,7 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 - [Verify Claim 2](https://www.google.com/search?q=[URL-encoded+search+query])
 ```
 
-```
+```text
 
 ---
 

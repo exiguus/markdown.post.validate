@@ -1,8 +1,8 @@
 # C6 - Argument Balance - Ensure fair and balanced presentation
 
-**Gate:** C (Accessibility & Style)  
-**Category:** Argument Balance  
-**Severity:** WARNING  
+**Gate:** C (Accessibility & Style)
+**Category:** Argument Balance
+**Severity:** WARNING
 **Type:** Manual
 
 > **Note:** This is an AI prompt template for manual quality gate C6. Copy the PROMPT section below and paste it into an AI chat along with your blog post content to assist with the manual argument balance review process.
@@ -166,9 +166,9 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 |-------------|-----------|----------------|
 | **Primary Thesis** | [Exact quote or paraphrase from post] | - |
 | **Thesis Location** | [Section Name, paragraph X, line Y] | - |
-| **Explicit or Implied** | EXPLICIT | YES | NO | ["Exact quote if explicit"] |
+| **Explicit or Implied** | EXPLICIT | YES/NO - ["Exact quote if explicit"] |
 | **Topic** | [Main topic of the post] | - |
-| **Controversy Level** | LOW | MEDIUM | HIGH | [Justification: why this level?] |
+| **Controversy Level** | LOW/MEDIUM/HIGH | [Justification: why this level?] |
 
 ---
 
@@ -176,8 +176,8 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 
 | **#** | **Viewpoint** | **Position** | **Space Given** | **Presentation** | **Evidence** | **Counterarguments Addressed** | **Status** |
 |-------|---------------|--------------|----------------|------------------|--------------|--------------------------------|------------|
-| 1 | PRIMARY | [Author's position] | [X words/Y% of post] | FAIR | ACCURATE | YES | NO | PASS |
-| 2 | ALTERNATIVE | [Opposing view] | [X words/Y% of post] | FAIR | STRAW MAN | YES | NO | PASS | FAIL |
+| 1 | PRIMARY | [Author's position] | [X words/Y% of post] | FAIR | ACCURATE | YES/NO | PASS |
+| 2 | ALTERNATIVE | [Opposing view] | [X words/Y% of post] | FAIR | STRAW MAN | YES/NO | PASS/FAIL |
 | 3 | MISSING | [Not covered] | 0% | - | - | - | FLAGGED |
 
 **Viewpoint Details:**
@@ -201,7 +201,7 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 
 | **#** | **Missing Perspective** | **Description** | **Why It Matters** | **Web Search Suggestion** | **Severity** |
 |-------|------------------------|-----------------|-------------------|----------------------------|--------------|
-| 1 | [Perspective name] | [What this perspective believes] | [Why including this would improve balance] | ["search query to find this perspective"] | HIGH | MEDIUM | LOW |
+| 1 | [Perspective name] | [What this perspective believes] | [Why including this would improve balance] | ["search query to find this perspective"] | HIGH/MEDIUM/LOW |
 
 [Repeat for all missing perspectives]
 
@@ -234,7 +234,7 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 
 | **#** | **Fallacy Type** | **Example Text** | **Location** | **Problem** | **Severity** | **Suggested Fix** |
 |-------|------------------|-----------------|--------------|-------------|--------------|-------------------|
-| 1 | [STRAW MAN | FALSE DICHOTOMY | etc.] | ["Exact text from post"] | [Section:pY:lineZ] | [Explanation of the fallacy] | HIGH | MEDIUM | LOW | [How to restructure] |
+| 1 | STRAW MAN/FALSE DICHOTOMY/etc. | ["Exact text from post"] | [Section:pY:lineZ] | [Explanation of the fallacy] | HIGH/MEDIUM/LOW | [How to restructure] |
 
 [Repeat for all fallacies found]
 
@@ -275,9 +275,9 @@ If NO or INSUFFICIENT:
 
 | **Aspect** | **Rating** | **Details** |
 |------------|------------|-------------|
-| **Neutral tone** | YES | PARTIAL | NO | [Assessment with examples if not YES] |
-| **Facts vs. opinions separation** | YES | PARTIAL | NO | [Assessment with examples if not YES] |
-| **Bias disclosure** | PRESENT | PARTIAL | MISSING | [Assessment] |
+| **Neutral tone** | YES/PARTIAL/NO | [Assessment with examples if not YES] |
+| **Facts vs. opinions separation** | YES/PARTIAL/NO | [Assessment with examples if not YES] |
+| **Bias disclosure** | PRESENT/PARTIAL/MISSING | [Assessment] |
 
 ---
 
@@ -301,9 +301,9 @@ If NO or INSUFFICIENT:
 | **Balance Score** | [0-100] |
 | **Bias Indicators** | X found (HIGH: A, MEDIUM: B, LOW: C) |
 | **Logical Fallacies** | X found (HIGH: A, MEDIUM: B, LOW: C) |
-| **Facts/Opinions Separation** | [PASS | PARTIAL | FAIL] |
-| **Bias Disclosure** | [PASS | PARTIAL | FAIL] |
-| **Verdict** | PASS | PARTIAL | FAIL |
+| **Facts/Opinions Separation** | PASS/PARTIAL/FAIL |
+| **Bias Disclosure** | PASS/PARTIAL/FAIL |
+| **Verdict** | PASS/PARTIAL/FAIL |
 
 ---
 
@@ -350,7 +350,7 @@ If NO or INSUFFICIENT:
 |-------------|-----------|----------------|
 | **Primary Thesis** | "Rust is the best programming language for systems programming" | Unqualified superlative |
 | **Thesis Location** | Introduction, paragraph 1, line 12 | Stated explicitly |
-| **Explicit or Implied** | EXPLICIT | YES | "Rust has consistently been voted the most loved..." |
+| **Explicit or Implied** | EXPLICIT/YES | "Rust has consistently been voted the most loved..." |
 | **Topic** | Programming language choice for systems programming | - |
 | **Controversy Level** | HIGH | Programming language preferences are highly subjective |
 
@@ -421,7 +421,7 @@ If NO or INSUFFICIENT:
 
 | **#** | **Fallacy Type** | **Example Text** | **Location** | **Problem** | **Severity** | **Suggested Fix** |
 |-------|------------------|-----------------|--------------|-------------|--------------|-------------------|
-| 1 | FALSE DICHOTOMY | "Rust offers a unique combination of performance, reliability, AND productivity" | Why Learn Rust, p1, l16 | Implies only Rust offers all three, ignoring C++ with careful coding | MEDIUM | Qualify: "Rust offers a unique COMPILE-TIME combination..." |
+| 1 | FALSE DICHOTOMY | "Rust offers a unique combination of performance, reliability, AND productivity" | Why Learn Rust, p1, l16 | Implies only Rust offers all three, ignoring C++ with careful coding | MEDIUM | Qualify: "Rust offers unique ..." |
 
 ---
 

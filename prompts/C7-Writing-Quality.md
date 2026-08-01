@@ -1,8 +1,8 @@
 # C7 - Writing Quality - Assess tone, readability, and style
 
-**Gate:** C (Accessibility & Style)  
-**Category:** Writing Quality  
-**Severity:** WARNING  
+**Gate:** C (Accessibility & Style)
+**Category:** Writing Quality
+**Severity:** WARNING
 **Type:** Manual
 
 > **Note:** This is an AI prompt template for manual quality gate C7. Copy the PROMPT section below and paste it into an AI chat along with your blog post content to assist with the manual writing quality review process.
@@ -12,7 +12,8 @@
 ## PROMPT (Copy and paste to AI chat with your blog post)
 
 ```text
-You are a professional copy editor and writing coach with expertise in technical communication. Analyze this blog post for writing quality, tone, readability, style consistency, and technical execution. Be thorough and provide specific examples with exact locations.
+You are a professional copy editor and writing coach with expertise in technical communication. Analyze this blog post for writing quality, tone, readability, style consistency, and technical execution.
+Be thorough and provide specific examples with exact locations.
 
 ### MEASURABLE CRITERIA:
 
@@ -242,7 +243,7 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 | Total sentences | X | - | - | - |
 | Total paragraphs | X | - | - | - |
 | Total sections | X | - | - | - |
-| Avg words per section | X | 300-600 | [PASS | WARN | FAIL] | [notes] |
+| Avg words per section | X | 300-600 | PASS/WARN/FAIL | [notes] |
 
 ---
 
@@ -250,11 +251,11 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 
 | **Metric** | **Value** | **Target** | **Status** | **Flagged Items** | **Flagged Locations** |
 |------------|-----------|------------|------------|------------------|-----------------------|
-| Avg sentence length | X words | 15-25 words | [PASS | WARN | FAIL] | X sentences | [Section:pY:sZ, ...] |
-| Long sentences (>35 words) | X | < 5% | [PASS | WARN | FAIL] | X sentences | [Section:pY:sZ, ...] |
-| Avg paragraph length | X words | 75-150 words | [PASS | WARN | FAIL] | X paragraphs | [Section:pY, ...] |
-| Long paragraphs (>200 words) | X | 0 | [PASS | WARN | FAIL] | X paragraphs | [Section:pY, ...] |
-| Estimated reading level | Grade X | [8-12 for technical] | [PASS | WARN | FAIL] | - | - |
+| Avg sentence length | X words | 15-25 words | PASS/WARN/FAIL | X sentences | [Section:pY:sZ, ...] |
+| Long sentences (>35 words) | X | < 5% | PASS/WARN/FAIL | X sentences | [Section:pY:sZ, ...] |
+| Avg paragraph length | X words | 75-150 words | PASS/WARN/FAIL | X paragraphs | [Section:pY, ...] |
+| Long paragraphs (>200 words) | X | 0 | PASS/WARN/FAIL | X paragraphs | [Section:pY, ...] |
+| Estimated reading level | Grade X | [8-12 for technical] | PASS/WARN/FAIL | - | - |
 
 **Long Sentences Detail:**
 1. **Sentence:** ["Exact sentence text"]
@@ -280,12 +281,12 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 
 | **Aspect** | **Value** | **Target** | **Status** | **Issues Found** | **Issue Locations** |
 |------------|-----------|------------|------------|------------------|--------------------|
-| **Voice: Active** | X% | > 90% | [PASS | WARN | FAIL] | X passive sentences | [Section:pY:sZ, ...] |
-| **Voice: Passive** | X% | < 10% | [PASS | WARN | FAIL] | - | - |
-| **Terminology** | [CONSISTENT | INCONSISTENT] | CONSISTENT | [PASS | FAIL] | X instances | [list] |
-| **Headings** | [CONSISTENT | INCONSISTENT] | Title Case | [PASS | FAIL] | X issues | [list] |
-| **Numbers** | [CONSISTENT | INCONSISTENT] | Spell 0-9 | [PASS | FAIL] | X issues | [list] |
-| **Punctuation** | [CORRECT | ISSUES FOUND] | Correct | [PASS | FAIL] | X issues | [list] |
+| **Voice: Active** | X% | > 90% | PASS/WARN/FAIL | X passive sentences | [Section:pY:sZ, ...] |
+| **Voice: Passive** | X% | < 10% | PASS/WARN/FAIL | - | - |
+| **Terminology** | CONSISTENT/INCONSISTENT | CONSISTENT | PASS/FAIL | X instances | [list] |
+| **Headings** | CONSISTENT/INCONSISTENT | Title Case | PASS/FAIL | X issues | [list] |
+| **Numbers** | CONSISTENT/INCONSISTENT | Spell 0-9 | PASS/FAIL | X issues | [list] |
+| **Punctuation** | CORRECT/ISSUES FOUND | Correct | PASS/FAIL | X issues | [list] |
 
 **Passive Voice Instances:**
 1. **Sentence:** ["Exact passive sentence"]
@@ -330,10 +331,10 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 
 | **Aspect** | **Rating** | **Details** | **Example Locations** |
 |------------|------------|-------------|----------------------|
-| **Consistency** | CONSISTENT | VARIES | [Assessment] | [Section:pY, ...] |
-| **Appropriateness** | APPROPRIATE | NEEDS ADJUSTMENT | [Assessment] | [Section:pY, ...] |
-| **Professionalism** | HIGH | MEDIUM | LOW | [Assessment] | [Section:pY, ...] |
-| **Engagement** | HIGH | MEDIUM | LOW | [Assessment] | [Section:pY, ...] |
+| **Consistency** | CONSISTENT/VARIES | [Assessment] | [Section:pY, ...] |
+| **Appropriateness** | APPROPRIATE/NEEDS ADJUSTMENT | [Assessment] | [Section:pY, ...] |
+| **Professionalism** | HIGH/MEDIUM/LOW | [Assessment] | [Section:pY, ...] |
+| **Engagement** | HIGH/MEDIUM/LOW | [Assessment] | [Section:pY, ...] |
 
 **Tone Issues:**
 1. **Issue:** [TOO FORMAL | TOO CASUAL | INCONSISTENT | INAPPROPRIATE]
@@ -349,9 +350,9 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 
 | **Aspect** | **Rating** | **Details** | **Problem Locations** |
 |------------|------------|-------------|----------------------|
-| **Paragraph Structure** | GOOD | NEEDS WORK | [Assessment] | [Section:pY, ...] |
-| **Transitions** | SMOOTH | ABRUPT | [Assessment] | [Section:pY, ...] |
-| **Logical Progression** | CLEAR | CONFUSING | [Assessment] | [Section:pY, ...] |
+| **Paragraph Structure** | GOOD/NEEDS WORK | [Assessment] | [Section:pY, ...] |
+| **Transitions** | SMOOTH/ABRUPT | [Assessment] | [Section:pY, ...] |
+| **Logical Progression** | CLEAR/CONFUSING | [Assessment] | [Section:pY, ...] |
 
 **Paragraph Structure Issues:**
 1. **Paragraph:** [First 100 characters...]
@@ -381,9 +382,9 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 
 | **Error Type** | **Count** | **Target** | **Status** | **Severity** |
 |---------------|-----------|------------|------------|--------------|
-| **Spelling** | X | 0 | [PASS | FAIL] | [HIGH | MEDIUM | LOW] |
-| **Grammar** | X | 0 | [PASS | FAIL] | [HIGH | MEDIUM | LOW] |
-| **Punctuation** | X | 0 | [PASS | FAIL] | [HIGH | MEDIUM | LOW] |
+| **Spelling** | X | 0 | PASS/FAIL | HIGH/MEDIUM/LOW |
+| **Grammar** | X | 0 | PASS/FAIL | HIGH/MEDIUM/LOW |
+| **Punctuation** | X | 0 | PASS/FAIL | HIGH/MEDIUM/LOW |
 
 **Spelling Errors:**
 1. **Word:** ["misspelled word"]

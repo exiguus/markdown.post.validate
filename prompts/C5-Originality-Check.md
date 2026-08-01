@@ -214,7 +214,7 @@ RESPOND WITH EXACTLY THIS STRUCTURE:
 If YES:
 | **#** | **Template Text** | **Location** | **Type** | **Suggested Fix** |
 |-------|------------------|--------------|----------|-------------------|
-| 1 | ["exact text"] | [Section:pY:lineZ] | [PLACEHOLDER | GENERIC | DEMO] | [Replace with specific content] |
+| 1 | ["exact text"] | [Section:pY:lineZ] | PLACEHOLDER/GENERIC/DEMO | [Replace with specific content] |
 
 ---
 
@@ -224,7 +224,7 @@ If YES:
 
 | **#** | **Suspicious Text** | **Location** | **Flag Type** | **Verification Search** | **Severity** |
 |-------|--------------------|--------------|---------------|-------------------------|--------------|
-| 1 | ["Exact suspicious phrase or paragraph"] | [Section:pY:lineZ] | [VERBATIM | NEAR-VERBATIM | UNCOMMON PHRASE] | ["exact search query"] | HIGH | MEDIUM | LOW |
+| 1 | ["Exact suspicious phrase or paragraph"] | [Section:pY:lineZ] | VERBATIM/NEAR-VERBATIM/UNCOMMON PHRASE | ["exact search query"] | HIGH/MEDIUM/LOW |
 
 ---
 
@@ -232,12 +232,12 @@ If YES:
 
 | **Value Type** | **Rating** | **Examples from Post** | **Count** |
 |---------------|------------|------------------------|-----------|
-| **Original Insights** | HIGH | MEDIUM | LOW | ["Example insight 1", "Example insight 2"] | X |
-| **Original Analysis** | HIGH | MEDIUM | LOW | ["Example analysis"] | X |
-| **Added Perspective** | HIGH | MEDIUM | LOW | ["Example perspective"] | X |
-| **Personal Experience** | HIGH | MEDIUM | LOW | ["Example from experience"] | X |
-| **Unique Examples** | HIGH | MEDIUM | LOW | ["Example unique example"] | X |
-| **Actionable Advice** | HIGH | MEDIUM | LOW | ["Example advice"] | X |
+| **Original Insights** | HIGH/MEDIUM/LOW | ["Example insight 1", "Example insight 2"] | X |
+| **Original Analysis** | HIGH/MEDIUM/LOW | ["Example analysis"] | X |
+| **Added Perspective** | HIGH/MEDIUM/LOW | ["Example perspective"] | X |
+| **Personal Experience** | HIGH/MEDIUM/LOW | ["Example from experience"] | X |
+| **Unique Examples** | HIGH/MEDIUM/LOW | ["Example unique example"] | X |
+| **Actionable Advice** | HIGH/MEDIUM/LOW | ["Example advice"] | X |
 
 **Unique Content Examples:**
 1. **Type:** [INSIGHT | ANALYSIS | EXAMPLE | ADVICE]
