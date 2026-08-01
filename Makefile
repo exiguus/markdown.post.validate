@@ -4,23 +4,30 @@ SHELLS := $(ROOT_SHELLS) $(TEST_SHELLS)
 
 .PHONY: fmt check lint styleguide test install hooks
 
-## Format all shell scripts (2-space indent, Google style)
+## Format all shell scripts (2-space indent, Google style) and Markdown files (via rumdl)
 fmt:
 	@# Rewrite scripts in-place with project formatting rules.
 	@echo "[fmt] Formatting shell scripts"
 	@shfmt -w -i 2 -ci -bn $(SHELLS)
+	@echo "[fmt] Formatting Markdown files"
+	@rumdl fmt
 
 ## Show formatting diff without writing
 fmt-check:
 	@# Show formatting differences without modifying files.
-	@echo "[fmt-check] Checking formatting"
+	@echo "[fmt-check] Checking formatting of shell scripts"
 	@shfmt -d -i 2 -ci -bn $(SHELLS)
+	@echo "[fmt-check] Checking formatting of Markdown files"
+	@rumdl check
 
-## Lint all shell scripts
+## Lint all shell scripts and Markdown files
 lint:
 	@# Run ShellCheck with sourced-file resolution enabled.
 	@echo "[lint] Running shellcheck"
 	@shellcheck -x -S warning $(SHELLS)
+	@# Run Markdown check (rumdl) for bare URLs and other issues.
+	@echo "[lint] Running rumdl"
+	@rumdl check
 
 ## Google Bash styleguide baseline checks
 styleguide:
@@ -125,6 +132,16 @@ install:
 			exit 1; \
 		fi; \
 	fi
+	@# Install rumdl if missing.
+	@if ! command -v rumdl >/dev/null 2>&1; then \
+    if command -v cargo >/dev/null 2>&1; then \
+      echo "Installing rumdl..."; \
+      cargo install rumdl; \
+    else \
+      echo "Install cargo to be able to install rumdl"; \
+      exit 1; \
+    fi; \
+  fi
 	@echo "[install] Tooling is ready"
 
 

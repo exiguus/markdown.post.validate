@@ -33,10 +33,13 @@ A comprehensive Bash-based validation system for markdown blog posts that enforc
 - Bash 4+ (for associative arrays)
 - GNU core utilities (find, grep, sed, awk)
 - Optional: [lychee](https://lychee.cli.rs/) for link validation (`cargo install lychee`)
+- Optional: [rumdl](https://github.com/rvben/rumdl) for markdown validation (`cargo install rumdl`)
 - Optional: [shfmt](https://github.com/mvdan/sh) for formatting
 - Optional: [shellcheck](https://www.shellcheck.net/) for linting
-- Optional: [jq](https://stedolan.github.io/jq/) for JSON parsing (`make install`)
-- Optional: Mistral API key for AI-assisted manual checks (create `.mistral` from `.mistral.sample`)
+- Optional: [jq](https://stedolan.github.io/jq/) for JSON parsing
+- Optional: Mistral API key for AI-assisted manual checks (create `.mistral` from `.mistral.sample
+
+**Note:** Run `make install` to install all dependencies.
 
 ### Setup
 
@@ -775,7 +778,7 @@ Potential integrations to increase automation coverage:
 
 ### Common Issues
 
-**"Command not found: lychee"**
+#### "Command not found: lychee"
 
 Install lychee for link validation:
 
@@ -785,7 +788,7 @@ cargo install lychee
 
 Or the check will be skipped with a warning.
 
-**"set: -o pipefail: invalid option"**
+#### "set: -o pipefail: invalid option"
 
 Ensure you're using Bash 4+. Check your bash version:
 
@@ -793,7 +796,7 @@ Ensure you're using Bash 4+. Check your bash version:
 bash --version
 ```
 
-**Test failures with exit code issues**
+#### "Test failures with exit code issues"
 
 Make sure all scripts have the required header:
 

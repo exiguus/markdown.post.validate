@@ -9,11 +9,13 @@ tags = ["rust", "programming", "beginner", "tutorial"]
 
 ## Introduction
 
-Rust has consistently been voted the most loved programming language in the Stack Overflow Developer Survey for several years running. But what makes Rust so special? This guide will walk you through the fundamentals of Rust and help you understand why developers are flocking to it.
+Rust has consistently been voted the most loved programming language in the Stack Overflow Developer Survey for several years running. But what makes Rust so special?
+This guide will walk you through the fundamentals of Rust and help you understand why developers are flocking to it.
 
 ## Why Learn Rust
 
-Rust offers a unique combination of performance, reliability, and productivity. Unlike other systems programming languages, Rust provides memory safety without garbage collection. This means you can write fast, efficient code without the risk of segmentation faults or data races.
+Rust offers a unique combination of performance, reliability, and productivity.
+Unlike other systems programming languages, Rust provides memory safety without garbage collection. This means you can write fast, efficient code without the risk of segmentation faults or data races.
 
 The Rust compiler, often referred to as the "borrow checker," enforces these safety guarantees at compile time. This catches many bugs before your code even runs, saving you countless hours of debugging.
 
