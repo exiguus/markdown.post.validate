@@ -34,6 +34,10 @@ validate_hero_alt() {
     # No hero_alt is okay if there's no hero image.
     if echo "$content" | grep -q 'hero_img ='; then
       warn "C1" "Format: hero_alt is missing but hero_img is present."
+    else
+      if [[ "$verbose" == "true" ]]; then
+        pass "C1" "Format: No hero image present (valid if none is needed)."
+      fi
     fi
   fi
 }

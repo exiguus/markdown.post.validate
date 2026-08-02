@@ -311,6 +311,7 @@ o [B7] Quote Accuracy: Verify quotes are accurate and properly attributed (manua
 o [B8] Conclusion Quality: Assess conclusion effectiveness and synthesis (manual validation required)
 
 === Gate C: Accessibility & Style ===
+✓ [C1] Format: No hero image present (valid if none is needed).
 ✓ [C2] Format: Description length is appropriate.
 ✓ [C3] Links: No 'click here' link text found.
 ✓ [C4] Tables: No tables found (valid if none are needed).
@@ -364,6 +365,7 @@ o [B7] Quote Accuracy: Verify quotes are accurate and properly attributed (manua
 o [B8] Conclusion Quality: Assess conclusion effectiveness and synthesis (manual validation required)
 
 === Gate C: Accessibility & Style ===
+✓ [C1] Format: No hero image present (valid if none is needed).
 ✓ [C2] Format: Description length is appropriate.
 ✓ [C3] Links: No 'click here' link text found.
 ✓ [C4] Tables: No tables found (valid if none are needed).
@@ -408,6 +410,7 @@ o [B7] Quote Accuracy: Verify quotes are accurate and properly attributed (manua
 o [B8] Conclusion Quality: Assess conclusion effectiveness and synthesis (manual validation required)
 
 === Gate C: Accessibility & Style ===
+✓ [C1] Format: No hero image present (valid if none is needed).
 ✓ [C2] Format: Description length is appropriate.
 ✓ [C3] Links: No 'click here' link text found.
 ✓ [C4] Tables: No tables found (valid if none are needed).
