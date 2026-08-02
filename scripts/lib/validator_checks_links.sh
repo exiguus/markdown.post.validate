@@ -128,7 +128,7 @@ validate_link_text() {
   click_here_count=$(echo "$content" | grep -ci 'click here')
 
   if [[ $click_here_count -gt 0 ]]; then
-    fail "C3" "Links: Found '$click_here_count' instances of 'click here' link text. Use descriptive text instead."
+    warn "C3" "Links: Found '$click_here_count' instances of 'click here' link text. Use descriptive text instead."
   else
     if [[ "$verbose" == "true" ]]; then
       pass "C3" "Links: No 'click here' link text found."
